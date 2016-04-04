@@ -1,18 +1,19 @@
 #pragma once
-#ifndef EBML_HEADER_H
-#define EBML_HEADER_H
 #include "IEbmlElement.h"
 #include "Webmids.hpp"
 #include "Types.h"
 #include <string>
+#ifndef EBML_HEADER_H
+#define EBML_HEADER_H
 
 namespace MkvParser
 {
 	class EbmlHeader : public IEbmlElement
 	{
 	public:
+
 		EbmlHeader(long long elementStart, long long elementSize, long long dataStart, long long dataSize, IEbmlElement* father, IMkvReader* pReader)
-			: IEbmlElement::IEbmlElement(elementStart, elementSize, dataStart, dataSize, father, pReader),
+			: IEbmlElement(elementStart, elementSize, dataStart, dataSize, father, pReader),
 			EbmlVersion(1),
 			EbmlReadVersion(1),
 			EbmlMaxIDLength(4),
@@ -21,11 +22,13 @@ namespace MkvParser
 			DocTypeVersion(1),
 			DocTypeReadVersion(1)
 		{
+			SetMaxIDLength(EbmlMaxIDLength);
+			SetMaxSizeLength(EbmlMaxSizeLength);
 		}
 		/*
 		Parse header from file.
 		Return:
-			0: successful
+			SUCCESS: successful
 			negative number: failed
 		*/
 		virtual Int64 ParseFromFile();
@@ -38,8 +41,8 @@ namespace MkvParser
 		std::string DocType;
 		Uint64 DocTypeVersion;
 		Uint64 DocTypeReadVersion;
+
 	protected:
-	private:
 	};
 }
 #endif

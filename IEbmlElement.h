@@ -1,17 +1,54 @@
 #pragma once
-#ifndef IEBML_ELEMENT_H
-#define IEBML_ELEMENT_H
-
 #include "MkvReader.hpp"
 #include "Webmids.hpp"
 #include <set>
-#include "assert.h"
+#include "Types.h"
+#ifndef IEBML_ELEMENT_H
+#define IEBML_ELEMENT_H
 
 namespace MkvParser
 {
 	class IEbmlElement
 	{
+	private:
+		static Uint64 sMaxIDLength;
+		static Uint64 sMaxSizeLength;
 	protected:
+		/*
+		Check the range of ID according to EBML header
+		params:
+		IDSize: ID's size in byte number
+		Return:
+		true: within ID range
+		false: ...
+		*/
+		bool CheckIDLength(long IDSize) // Size in Byte number
+		{
+			return !(IDSize < 0 || IDSize >(!sMaxIDLength ? 4 : sMaxIDLength));
+		}
+		/*
+		Check the range of Size field according to EBML header
+		Params:
+		sizeLen: size's byte number
+		Return:
+		true: within size range
+		false: otherwise
+		*/
+		bool CheckElementSize(long sizeLen)
+		{
+			return !(sizeLen < 0 || sizeLen >(!sMaxSizeLength ? 8 : sMaxSizeLength));
+		}
+		
+		void SetMaxIDLength(Uint64 value)
+		{
+			sMaxIDLength = value;
+		}
+
+		void SetMaxSizeLength(Uint64 value)
+		{
+			sMaxSizeLength = value;
+		}
+
 		BytePostion m_element_start;
 		BytePostion m_element_size;
 		BytePostion m_start_data;
@@ -29,18 +66,21 @@ namespace MkvParser
 		Retuen:
 		in IMkvReader.h
 		*/
-		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id) {}
+		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id);
 		/*
 		After parsing this element, some acions may be taken to fill each attribute.
 		*/
-		virtual void AFewMoreActions() { }
-		virtual void PreClean() { }
+		virtual void AFewMoreActions();
+		virtual void PreClean();
+	
 	public:
 		IEbmlElement(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart,Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
 			: m_element_start(elementStart), m_element_size(elementSize), m_size_data(dataSize), m_start_data(dataStart), m_pFather(father), m_pReader(pReader)
 		{
-			assert((elementStart + elementSize) == (dataSize + dataStart));
+			sMaxIDLength = 0;
+			sMaxSizeLength = 0;
 		}
+		
 		long long GetDataSize() const { return m_size_data; }
 		long long GetDataStart() const { return m_start_data; }
 		long long GetElementSize() const { return m_element_size; }
@@ -53,42 +93,9 @@ namespace MkvParser
 		SUCCESS
 		FAILED
 		*/
-		virtual ParseResult ParseFromFile()
-		{
-			PreClean();
-			if (this->m_pReader == nullptr) return FAILED;
-			BytePostion cur_pos = this->GetDataStart();
-			BytePostion stop_pos = this->GetDataSize();
-			if (cur_pos > stop_pos) return E_FILE_FORMAT_INVALID;
-			while (cur_pos < stop_pos)
-			{
-				Uint64 status;
-				long length = -1;
-				BytePostion e_start = cur_pos;
-				// Read ID
-				status = ReadID(this->m_pReader, cur_pos, length);
-				if (status < 0) return E_FILE_FORMAT_INVALID;
-				if (!CheckIDSize(length)) return E_FILE_FORMAT_INVALID;
-				cur_pos += length; // Consumes ID
-				EbmlID id = (EbmlID)status;
-				// Read DataSize
-				status = ReadUInt(this->m_pReader, cur_pos, length);
-				if (status < 0) return E_FILE_FORMAT_INVALID;
-				if (!CheckElementSize(length)) return E_FILE_FORMAT_INVALID;
-				cur_pos += length; // Consumes Size
-				Uint64 d_size = status;
-				// Read Data
-				cur_pos += d_size;// Consumes data
-				status = ParseChild(e_start, cur_pos + d_size - e_start, cur_pos, d_size, id);
-				if (status != SUCCESS) return status;
-				if (cur_pos > stop_pos) return E_FILE_FORMAT_INVALID;
-			}
-			if (cur_pos != stop_pos) return E_FILE_FORMAT_INVALID;
-			AFewMoreActions();
-			return SUCCESS;
-		}
+		virtual ParseResult ParseFromFile();
 
-		virtual ~IEbmlElement() { }
+		virtual ~IEbmlElement();
 	};
 }
 

@@ -21,39 +21,39 @@
   <ItemGroup>
     <ClCompile Include="BlockGroup.cpp" />
     <ClCompile Include="Cluster.cpp" />
+    <ClCompile Include="Cues.cpp" />
     <ClCompile Include="EbmlHeader.cpp" />
+    <ClCompile Include="IEbmlElement.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MkvReader.cpp" />
     <ClCompile Include="Seek.cpp" />
     <ClCompile Include="SeekHead.cpp" />
-    <ClCompile Include="SeekID.cpp" />
-    <ClCompile Include="SeekPosition.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="SegmentInfo.cpp" />
     <ClCompile Include="Block.cpp" />
     <ClCompile Include="SimpleBlock.cpp" />
     <ClCompile Include="Track.cpp" />
+    <ClCompile Include="WebmFile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Block.h" />
     <ClInclude Include="BlockGroup.h" />
     <ClInclude Include="Cluster.h" />
+    <ClInclude Include="Cues.h" />
     <ClInclude Include="EbmlHeader.h" />
     <ClInclude Include="Frame.h" />
-    <ClInclude Include="Global.h" />
     <ClInclude Include="IBlockEntry.h" />
     <ClInclude Include="IEbmlElement.h" />
     <ClInclude Include="IMkvReader.h" />
     <ClInclude Include="MkvReader.hpp" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="SeekHead.h" />
-    <ClInclude Include="SeekID.h" />
-    <ClInclude Include="SeekPosition.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="SegmentInfo.h" />
     <ClInclude Include="SimpleBlock.h" />
     <ClInclude Include="Track.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="WebmFile.h" />
     <ClInclude Include="Webmids.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

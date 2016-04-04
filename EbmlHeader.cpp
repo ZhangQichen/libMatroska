@@ -30,9 +30,11 @@ Int64 MkvParser::EbmlHeader::ParseFromFile()
 			break;
 		case MkvId::kMkvEBMLMaxIDLength:
 			status = (this->EbmlMaxIDLength = UnserializeUInt(this->m_pReader, pos, size));
+			SetMaxIDLength(EbmlMaxIDLength);
 			break;
 		case MkvId::kMkvEBMLMaxSizeLength:
 			status = (this->EbmlMaxSizeLength = UnserializeUInt(this->m_pReader, pos, size));
+			SetMaxSizeLength(EbmlMaxSizeLength);
 			break;
 		case MkvId::kMkvDocType:
 			status = UnserializeString(this->m_pReader, pos, size, this->DocType);
@@ -46,9 +48,6 @@ Int64 MkvParser::EbmlHeader::ParseFromFile()
 		case MkvId::kMkvVoid:
 			status = 0;
 			break;
-		case MkvId::kMkvEbmlCRC32:
-			status = 0;
-			break;
 		default:
 			status = -1;
 			break;
@@ -57,6 +56,6 @@ Int64 MkvParser::EbmlHeader::ParseFromFile()
 		pos += size;
 	}
 	if (pos == stopPos)
-		return 0;
+		return SUCCESS;
 	else return E_FILE_FORMAT_INVALID;
 }

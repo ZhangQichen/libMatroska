@@ -27,12 +27,6 @@
     <ClCompile Include="Segment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SeekID.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SeekPosition.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Seek.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,11 +51,17 @@
     <ClCompile Include="Track.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Cues.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IEbmlElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WebmFile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="IEbmlElement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="EbmlHeader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -86,15 +86,6 @@
     <ClInclude Include="Seek.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SeekID.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SeekPosition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SegmentInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -117,6 +108,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Track.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cues.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IEbmlElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WebmFile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

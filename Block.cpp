@@ -198,7 +198,7 @@ namespace MkvParser
 		ParseResult status = ParseBlockHeader(this->m_pReader, cur_pos);
 		if (cur_pos >= stop_pos) return E_FILE_FORMAT_INVALID;
 		if (status != SUCCESS) return E_FILE_FORMAT_INVALID;
-		status = ParseLacedData(this->m_pReader, cur_pos, stop_pos, this->Header.Lacing, this->Frames);
+		status = ParseLacedData(this->m_pReader, cur_pos, stop_pos, this->Header().Lacing, this->Frames);
 		if (cur_pos != stop_pos) return E_FILE_FORMAT_INVALID;
 		if (status != SUCCESS) return E_FILE_FORMAT_INVALID;
 		return SUCCESS;

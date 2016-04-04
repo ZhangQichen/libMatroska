@@ -1,5 +1,4 @@
 #include "Track.h"
-#include "Global.h"
 namespace MkvParser
 {
 	ParseResult ContentEncAESSettings::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
@@ -131,6 +130,7 @@ namespace MkvParser
 			this->BitDepth = status;
 			return SUCCESS;
 		}
+		else return SUCCESS;
 	}
 
 	ParseResult VideoSetting::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
@@ -268,28 +268,28 @@ namespace MkvParser
 		{
 			status = UnserializeUInt(this->m_pReader, d_start, d_size);
 			if (status != 0 && status != 1) return E_FILE_FORMAT_INVALID;
-			this->FlagEnabled = status;
+			this->FlagEnabled = (status == 1);
 			return SUCCESS;
 		}
 		else if (id == MkvId::kMkvFlagDefault)
 		{
 			status = UnserializeUInt(this->m_pReader, d_start, d_size);
 			if (status != 0 && status != 1) return E_FILE_FORMAT_INVALID;
-			this->FlagDefault = status;
+			this->FlagDefault = (status == 1);
 			return SUCCESS;
 		}
 		else if (id == MkvId::kMkvFlagForced)
 		{
 			status = UnserializeUInt(this->m_pReader, d_start, d_size);
 			if (status != 0 && status != 1) return E_FILE_FORMAT_INVALID;
-			this->FlagForced = status;
+			this->FlagForced = (status != 0);
 			return SUCCESS;
 		}
 		else if (id == MkvId::kMkvFlagLacing)
 		{
 			status = UnserializeUInt(this->m_pReader, d_start, d_size);
 			if (status != 0 && status != 1) return E_FILE_FORMAT_INVALID;
-			this->FlagLacing = status;
+			this->FlagLacing = (status != 0);
 			return SUCCESS;
 		}
 		else if (id == MkvId::kMkvDefaultDuration)

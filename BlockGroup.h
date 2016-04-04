@@ -1,9 +1,9 @@
 #pragma once
-#ifndef BLOCK_GROUP
-#define BLOCK_GROUP
 #include "IEbmlElement.h"
 #include "Block.h"
 #include "IBlockEntry.h"
+#ifndef BLOCK_GROUP
+#define BLOCK_GROUP
 
 namespace MkvParser
 {
@@ -40,7 +40,7 @@ namespace MkvParser
 		}
 		virtual bool IsInvisible() const
 		{
-			if (this->m_pBlock == nullptr) return -1;
+			if (this->m_pBlock == nullptr) return false;
 			return this->m_pBlock->Header().IsInvisible;
 		}
 		virtual bool IsKeyFrames() const { return false; }

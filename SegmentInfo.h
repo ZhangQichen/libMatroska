@@ -10,7 +10,7 @@ namespace MkvParser
 	{
 	public:
 		virtual EbmlID GetElementID() const { return MkvId::kMkvInfo; }
-		virtual ParseResult ParseFromFile();
+		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id);
 		SegmentInfo(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
 			: IEbmlElement(elementStart, elementSize, dataStart, dataSize, father, pReader),
 			TimecodeScale(1000000),

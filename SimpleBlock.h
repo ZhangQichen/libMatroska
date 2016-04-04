@@ -1,7 +1,8 @@
 #pragma once
+#include "Block.h"
+#include "IBlockEntry.h"
 #ifndef SIMPLE_BLOCK_H
 #define SIMPLE_BLOCK_H
-#include "Block.h"
 
 namespace MkvParser
 {

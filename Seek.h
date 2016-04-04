@@ -1,9 +1,7 @@
 #pragma once
+#include "IEbmlElement.h"
 #ifndef SEEK
 #define SEEK
-#include "IEbmlElement.h"
-#include "SeekID.h"
-#include "SeekPosition.h"
 
 namespace MkvParser
 {
@@ -11,19 +9,12 @@ namespace MkvParser
 	{
 	public:
 		virtual EbmlID GetElementID() const { return MkvId::kMkvSeek; }
-		/*
-		Parse a seek's data field from file.
-		Return:
-			0: successful
-			<0: failed
-		*/
-		virtual Int64 ParseFromFile();
+		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id);
 		Seek(BytePostion e_start, BytePostion e_size, BytePostion d_start, BytePostion d_size, IEbmlElement* father, IMkvReader* pReader)
-			: IEbmlElement(e_start, e_size, d_start, d_size, father, pReader), pSeekID(nullptr), pSeekPosition(nullptr)
+			: IEbmlElement(e_start, e_size, d_start, d_size, father, pReader)
 		{ }
-		SeekID* pSeekID;
-		SeekPostion* pSeekPosition;
-		virtual ~Seek();
+		EbmlID SeekID;
+		BytePostion SeekPosition; // Byte position relative to the start of the data field of the entire segment
 	};
 }
 

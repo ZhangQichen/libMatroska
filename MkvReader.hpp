@@ -26,11 +26,19 @@ class MkvReader : public IMkvReader {
 
   // Return 0 if successful
   virtual int Read(long long position, long length, unsigned char* buffer);
+  /*
+  Get the length of file
+  Params:
+  total: total size of file
+  available: available size of file
+  Return:
+  0 if successful
+  negative number if failed
+  */
   virtual int Length(long long* total, long long* available);
 
  private:
   MkvReader(const MkvReader&);
-  MkvReader& operator=(const MkvReader&);
 
   // Determines the size of the file. This is called either by the constructor
   // or by the Open function depending on file ownership. Returns true on
