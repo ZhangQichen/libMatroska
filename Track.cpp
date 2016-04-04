@@ -1,8 +1,11 @@
 #include "Track.h"
+//#include <iostream>
+
 namespace MkvParser
 {
 	ParseResult ContentEncAESSettings::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing ContentEncAESSettings\n";
 		if (id == MkvId::kMkvAESSettingsCipherMode)
 		{
 			ParseResult status = UnserializeUInt(this->m_pReader, d_start, d_size);
@@ -16,6 +19,7 @@ namespace MkvParser
 
 	ParseResult ContentEncryption::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing ContentEncryption\n";
 		if (id == MkvId::kMkvContentEncAlgo)
 		{
 			ParseResult status = UnserializeUInt(this->m_pReader, d_start, d_size);
@@ -47,6 +51,7 @@ namespace MkvParser
 
 	ParseResult ContentEncoding::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing ContentEncoding\n";
 		if (id == MkvId::kMkvContentEncodingOrder)
 		{
 			ParseResult status = UnserializeUInt(this->m_pReader, d_start, d_size);
@@ -83,6 +88,7 @@ namespace MkvParser
 
 	ParseResult ContentEncodings::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing ContentEncodings\n";
 		this->ContentEncodingCollection;
 		if (id == MkvId::kMkvContentEncoding)
 		{
@@ -97,6 +103,7 @@ namespace MkvParser
 
 	ParseResult AudioSetting::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing AudioSetting\n";
 		ParseResult status;
 		if (id == MkvId::kMkvSamplingFrequency)
 		{
@@ -135,6 +142,7 @@ namespace MkvParser
 
 	ParseResult VideoSetting::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing VideoSetting\n";
 		ParseResult status = -111;
 		if (id == MkvId::kMkvFlagInterlaced)
 		{
@@ -232,6 +240,7 @@ namespace MkvParser
 
 	ParseResult TrackEntry::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing TrackEntry\n";
 		ParseResult status = -111;
 		if (id == MkvId::kMkvTrackNumber)
 		{
@@ -244,7 +253,7 @@ namespace MkvParser
 		{
 			status = UnserializeUInt(this->m_pReader, d_start, d_size);
 			if (status <= 0) return E_FILE_FORMAT_INVALID;
-			this->TrackNumber = status;
+			this->TrackUID = status;
 			return SUCCESS;
 		}
 		else if (id == MkvId::kMkvTrackType)
@@ -382,6 +391,7 @@ namespace MkvParser
 
 	ParseResult Tracks::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing Tracks\n";
 		if (id == MkvId::kMkvTrackEntry)
 		{
 			TrackEntry* pEntry = new TrackEntry(e_start, e_size, d_start, d_size, this, this->m_pReader);

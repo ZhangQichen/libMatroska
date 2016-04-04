@@ -25,6 +25,7 @@ namespace MkvParser
 		FAILED
 		*/
 		virtual ParseResult ParseFromFile();
+		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id);
 		virtual EbmlID GetElementID() const { return MkvId::kMkvBlockGroup; }
 		// END IEbmlElement
 		// IBlockEntry

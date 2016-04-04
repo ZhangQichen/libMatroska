@@ -1,9 +1,11 @@
 #include "SegmentInfo.h"
+//#include <iostream>
 
 namespace MkvParser
 {
 	ParseResult SegmentInfo::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing Seg Info\n";
 		if (id == MkvId::kMkvTimecodeScale)
 		{
 			Int64 result = UnserializeUInt(this->m_pReader, d_start, d_size);
@@ -35,6 +37,6 @@ namespace MkvParser
 			this->WritingApp = str;
 			return SUCCESS;
 		}
-		else return E_FILE_FORMAT_INVALID;
+		else return SUCCESS;
 	}
 }

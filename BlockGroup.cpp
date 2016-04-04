@@ -2,6 +2,38 @@
 
 namespace MkvParser
 {
+	ParseResult BlockGroup::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
+	{
+		ParseResult status = -100;
+		if (id == MkvId::kMkvBlock)
+		{
+			if (m_pBlock != nullptr) return FAILED;
+			Block* pBlock = new Block(e_start, e_size, d_start, d_size, this, this->m_pReader);
+			status = pBlock->ParseFromFile();
+			if (status != SUCCESS) return status;
+		}
+		else if (id == MkvId::kMkvBlockDuration)
+		{
+			if (BlockDuration >= 0) // Has been initialized
+				return E_FILE_FORMAT_INVALID;
+			status = UnserializeUInt(this->m_pReader, d_start, d_size);
+			if (status < 0) return E_FILE_FORMAT_INVALID;
+			this->BlockDuration = status;
+		}
+		else if (id == MkvId::kMkvDiscardPadding)
+		{
+			if (DiscardPadding >= 0) // Has been initialized
+				return E_FILE_FORMAT_INVALID;
+			Int64 result = -100;
+			status = UnserializeInt(this->m_pReader, d_start, d_size, result);
+			if (status != 0) return E_FILE_FORMAT_INVALID;
+			this->DiscardPadding = result;
+		}
+		else // Ignore other elements
+		{
+			return SUCCESS;
+		}
+	}
 	ParseResult BlockGroup::ParseFromFile()
 	{
 		BytePostion cur_pos = this->GetDataStart();

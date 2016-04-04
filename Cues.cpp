@@ -1,9 +1,11 @@
 #include "Cues.h"
+//#include <iostream>
 
 namespace MkvParser
 {
 	ParseResult CueTrackPositions::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing CueTrackPositions\n";
 		ParseResult status = -100;
 		if (id == MkvId::kMkvCueTrack)
 		{
@@ -31,6 +33,7 @@ namespace MkvParser
 
 	ParseResult CuePoint::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing CuePoint\n";
 		ParseResult status = -100;
 		if (id == MkvId::kMkvCueTime)
 		{
@@ -52,6 +55,7 @@ namespace MkvParser
 
 	ParseResult Cues::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing Cues\n";
 		ParseResult status = -100;
 		if (id == MkvId::kMkvCuePoint)
 		{

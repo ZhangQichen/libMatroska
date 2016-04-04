@@ -1,9 +1,11 @@
 #include "Block.h"
+//#include <iostream>
 
 namespace MkvParser
 {
 	ParseResult Block::ParseBlockHeader(IMkvReader* pReader, BytePostion& pos)
 	{
+		//std::cout << "On parsing Block header\n";
 		BlockHeader& bHeader = this->Header();
 		BytePostion cur_pos = pos;
 		if (pReader == nullptr) return FAILED;
@@ -17,12 +19,14 @@ namespace MkvParser
 		if (status < 0) return E_FILE_FORMAT_INVALID;
 		bHeader.TimeCode = static_cast<Int16>(result);
 		cur_pos += 2;
-		status = ParseFlags(pReader, pos);
+		status = ParseFlags(pReader, cur_pos);
+		if (status == SUCCESS) pos = cur_pos;
 		return status;
 	}
 
 	ParseResult Block::ParseLacedData(IMkvReader* pReader, BytePostion& pos, const BytePostion& stop, const LacingType& lacing, std::vector<Frame*>& frames)
 	{
+		//std::cout << "On parsing Block laced data\n";
 		if (frames.size() != 0) frames.clear();
 		BytePostion cur_pos = pos;
 		Byte buffer = ' ';
@@ -34,6 +38,7 @@ namespace MkvParser
 			fm->Position = cur_pos;
 			fm->Length = stop - cur_pos;
 			cur_pos = stop;
+			pos = cur_pos;
 			frames.push_back(fm);
 			return SUCCESS;
 		}
@@ -107,6 +112,7 @@ namespace MkvParser
 				fm->Length = stop - cur_pos;
 				frames.push_back(fm);
 				cur_pos = stop;
+				pos = cur_pos;
 				return SUCCESS;
 			}
 			else // Ebml lacting
@@ -158,6 +164,7 @@ namespace MkvParser
 				fm->Length = stop - cur_pos;
 				frames.push_back(fm);
 				cur_pos = stop;
+				pos = cur_pos;
 				return SUCCESS;
 			}
 		}
@@ -165,6 +172,7 @@ namespace MkvParser
 
 	ParseResult Block::ParseFlags(IMkvReader* pReader, BytePostion& pos)
 	{
+		//std::cout << "On parsing Block flags\n";
 		BytePostion cur_pos = pos;
 		Int64 status = -100;
 		unsigned char* buffer = new unsigned char;
@@ -193,6 +201,7 @@ namespace MkvParser
 
 	ParseResult Block::ParseFromFile()
 	{
+		//std::cout << "On parsing Block from file\n";
 		BytePostion cur_pos = this->GetDataStart();
 		BytePostion stop_pos = this->GetDataSize() + cur_pos;
 		ParseResult status = ParseBlockHeader(this->m_pReader, cur_pos);

@@ -25,6 +25,7 @@ namespace MkvParser
 		{
 			int res = pReader->Open(FileName.c_str());
 			if (res < 0) return false;
+			return true;
 		}
 		void Close()
 		{
@@ -36,6 +37,7 @@ namespace MkvParser
 		SegmentElement* pSegment;
 		ParseResult ParseFile()
 		{
+			if (!Open()) return FAILED;
 			ParseResult status;
 			status = ParseHeader();
 			if (status != SUCCESS) return status;

@@ -1,9 +1,11 @@
 #include "SimpleBlock.h"
+//#include <iostream>
 
 namespace MkvParser
 {
 	ParseResult SimpleBlock::ParseFlags(IMkvReader* pReader, BytePostion& pos)
 	{
+		//std::cout << "On parsing SimpleBlock header\n";
 		BytePostion cur_pos = pos;
 		Int64 status = -100;
 		unsigned char* buffer = new unsigned char;

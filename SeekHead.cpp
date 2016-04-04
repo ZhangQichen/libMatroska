@@ -1,8 +1,10 @@
 #include "SeekHead.h"
+//#include <iostream>
 namespace MkvParser
 {
 	ParseResult SeekHead::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing Seek Head\n";
 		if (id == MkvId::kMkvSeek)
 		{
 			Seek* pSeek = new Seek(e_start, d_start + d_size - e_start, d_start, d_size, this, this->m_pReader);

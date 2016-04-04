@@ -33,7 +33,7 @@ namespace MkvParser
 			pCues(nullptr)
 		{ }
 		virtual EbmlID GetElementID() const { return MkvParser::MkvId::kMkvSegment; }
-		SeekHead* pSeekHead;
+		SeekHead* pSeekHead; // Actually SeekHead is useless. Will write a new seekHead during writing.
 		SegmentInfo* pSegInfo;
 		std::vector<Cluster*> ClusterCollection;
 		Tracks* pTracks;

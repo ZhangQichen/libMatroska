@@ -1,9 +1,11 @@
 #include "Segment.h"
+//#include <iostream>
 
 namespace MkvParser
 {
 	ParseResult SegmentElement::ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id)
 	{
+		//std::cout << "On parsing Seg\n";
 		ParseResult status = -100;
 		if (id == MkvId::kMkvInfo)
 		{
@@ -12,12 +14,14 @@ namespace MkvParser
 			if (status != SUCCESS) delete pSegInfo;
 			return status;
 		}
-		else if (id == MkvId::kMkvSeekHead)
+		else if (id == MkvId::kMkvSeekHead) // Do nothing here because seek is not useful in parsing
 		{
-			this->pSeekHead = new SeekHead(e_start, e_size, d_start, d_size, this, this->m_pReader);
-			status = pSeekHead->ParseFromFile();
-			if (status != SUCCESS) delete pSeekHead;
-			return status;
+			
+			//this->pSeekHead = new SeekHead(e_start, e_size, d_start, d_size, this, this->m_pReader);
+			//status = pSeekHead->ParseFromFile();
+			//if (status != SUCCESS) delete pSeekHead;
+			//return status;
+			return SUCCESS;
 		}
 		else if (id == MkvId::kMkvCluster)
 		{
