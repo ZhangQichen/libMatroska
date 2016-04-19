@@ -1,7 +1,50 @@
 #include "EbmlHeader.h"
 #include "mkvreader.hpp"
+#include "Serialization.h"
 
 using namespace MkvParser;
+
+void EbmlHeader::GenerateSerializedInfo(Uint64 start)
+{
+	// Abs Element start
+	if (this->m_pFather != nullptr)
+	{
+		this->SerializedInformation.Abs_ElementStart = start;
+	}
+	else
+	{
+		//should have been initialized manually
+	}
+
+	// Data size
+	Uint64& ref = this->SerializedInformation.DataSize;
+	ref = 0;
+	ref += GetSerializedUintSize(EbmlVersion);
+	ref += GetSerializedUintSize(EbmlReadVersion);
+	ref += GetSerializedUintSize(EbmlMaxIDLength);
+	ref += GetSerializedUintSize(EbmlMaxSizeLength);
+	ref += GetSerializedUintSize(DocTypeVersion);
+	ref += GetSerializedUintSize(DocTypeReadVersion);
+	ref += GetSerializedStringSize(DocType);
+
+	// Element Size
+	Uint64& ref2 = this->SerializedInformation.ElementSize;
+	ref2 = 0;
+	ref2 += GetSerializedEbmlIDSize(this->GetElementID()); // ID
+	ref2 += GetSerializedEbmlSizeLength(this->SerializedInformation.DataSize); // Data Size
+	ref2 += this->SerializedInformation.DataSize; // Data
+
+	// Abs Data start
+	if (this->m_pFather != nullptr)
+	{
+		this->SerializedInformation.Abs_DataStart =
+			this->SerializedInformation.Abs_ElementStart + this->SerializedInformation.ElementSize - this->SerializedInformation.DataSize;
+	}
+	else
+	{
+		//should have been initialized manually
+	}
+}
 
 Int64 MkvParser::EbmlHeader::ParseFromFile()
 {

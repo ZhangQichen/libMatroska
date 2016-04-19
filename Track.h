@@ -18,6 +18,7 @@ namespace MkvParser
 			CipherMode(1)
 		{ }
 		Uint64 CipherMode; // Pre defined values: 1 - CTR
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class ContentEncryption : public IEbmlElement
@@ -34,6 +35,7 @@ namespace MkvParser
 		Uint64 ContentEncAlgo;
 		std::string ContentEncKeyID;
 		ContentEncAESSettings* pAESSettings;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class ContentEncoding : public IEbmlElement
@@ -57,6 +59,7 @@ namespace MkvParser
 		{
 			if (Encryption != nullptr) delete Encryption;
 		}
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class ContentEncodings : public IEbmlElement
@@ -70,6 +73,7 @@ namespace MkvParser
 		{ }
 		virtual EbmlID GetElementID() const { return MkvId::kMkvContentEncodings; }
 		std::vector<ContentEncoding*> ContentEncodingCollection;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class AudioSetting : public IEbmlElement
@@ -98,6 +102,7 @@ namespace MkvParser
 		double OutputSamplingFrequency; // Default value is SamplingFrequency. Init as 0 to show that this is not assigned.
 		Uint64 Channels;
 		Uint64 BitDepth;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class VideoSetting : public IEbmlElement
@@ -148,6 +153,7 @@ namespace MkvParser
 		Uint64 DisplayHeigth; // init as 0 to show this is unknown
 		Uint64 DisplayUnit; // 0(pixels) is only supported
 		Uint64 AspectRatioType; // 0: free resizing; 1: keep aspect ratio; 2: fixed
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	enum TrackType // 8 bits
@@ -208,6 +214,7 @@ namespace MkvParser
 		VideoSetting* pVideo;
 		AudioSetting* pAudio;
 		ContentEncodings* pContentEncodings;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 		virtual ~TrackEntry()
 		{
 			if (!pVideo) delete pVideo;

@@ -31,6 +31,7 @@
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="SegmentInfo.cpp" />
     <ClCompile Include="Block.cpp" />
+    <ClCompile Include="Serialization.cpp" />
     <ClCompile Include="SimpleBlock.cpp" />
     <ClCompile Include="Track.cpp" />
     <ClCompile Include="WebmFile.cpp" />
@@ -45,11 +46,13 @@
     <ClInclude Include="IBlockEntry.h" />
     <ClInclude Include="IEbmlElement.h" />
     <ClInclude Include="IMkvReader.h" />
+    <ClInclude Include="IMkvWriter.h" />
     <ClInclude Include="MkvReader.hpp" />
     <ClInclude Include="Seek.h" />
     <ClInclude Include="SeekHead.h" />
     <ClInclude Include="Segment.h" />
     <ClInclude Include="SegmentInfo.h" />
+    <ClInclude Include="Serialization.h" />
     <ClInclude Include="SimpleBlock.h" />
     <ClInclude Include="Track.h" />
     <ClInclude Include="Types.h" />

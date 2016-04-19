@@ -3,6 +3,7 @@
 #include "Webmids.hpp"
 #include <set>
 #include "Types.h"
+#include "Serialization.h"
 #ifndef IEBML_ELEMENT_H
 #define IEBML_ELEMENT_H
 
@@ -13,7 +14,15 @@ namespace MkvParser
 	private:
 		static Uint64 sMaxIDLength;
 		static Uint64 sMaxSizeLength;
+
 	protected:
+		BytePostion m_element_start;
+		BytePostion m_element_size;
+		BytePostion m_start_data;
+		BytePostion m_size_data;
+		IMkvReader* m_pReader;
+		IEbmlElement* m_pFather;
+
 		/*
 		Check the range of ID according to EBML header
 		params:
@@ -49,12 +58,6 @@ namespace MkvParser
 			sMaxSizeLength = value;
 		}
 
-		BytePostion m_element_start;
-		BytePostion m_element_size;
-		BytePostion m_start_data;
-		BytePostion m_size_data;
-		IMkvReader* m_pReader;
-		IEbmlElement* m_pFather;
 		/*
 		Parse a child ebml element from file,
 		Params:
@@ -74,13 +77,8 @@ namespace MkvParser
 		virtual void PreClean();
 	
 	public:
-		IEbmlElement(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart,Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
-			: m_element_start(elementStart), m_element_size(elementSize), m_size_data(dataSize), m_start_data(dataStart), m_pFather(father), m_pReader(pReader)
-		{
-			sMaxIDLength = 0;
-			sMaxSizeLength = 0;
-		}
-		
+		IEbmlElement(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader);
+		SerializedInfo SerializedInformation;
 		long long GetDataSize() const { return m_size_data; }
 		long long GetDataStart() const { return m_start_data; }
 		long long GetElementSize() const { return m_element_size; }
@@ -94,6 +92,8 @@ namespace MkvParser
 		FAILED
 		*/
 		virtual ParseResult ParseFromFile();
+
+		//virtual void GenerateSerializedInfo(Uint64 start) = 0;
 
 		virtual ~IEbmlElement();
 	};

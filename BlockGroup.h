@@ -10,6 +10,7 @@ namespace MkvParser
 	class BlockGroup : public IEbmlElement, public IBlockEntry
 	{
 	public:
+		//virtual void GenerateSerializedInfo(Uint64 start);
 		BlockGroup(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
 			: IEbmlElement(elementStart, elementSize, dataStart, dataSize, father, pReader),
 			m_pBlock(nullptr),

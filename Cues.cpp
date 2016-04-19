@@ -46,8 +46,9 @@ namespace MkvParser
 		{
 			CueTrackPositions* p = new CueTrackPositions(e_start, e_size, d_start, d_size, this, this->m_pReader);
 			status = p->ParseFromFile();
-			if (status != SUCCESS) delete p;
-			else CueTrackPositionCollection.push_back(p);
+			CueTrackPositionCollection.push_back(p);
+			//if (status != SUCCESS) delete p;
+			//else CueTrackPositionCollection.push_back(p);
 			return status;
 		}
 		else return SUCCESS;
@@ -61,8 +62,9 @@ namespace MkvParser
 		{
 			CuePoint* p = new CuePoint(e_start, e_size, d_start, d_size, this, this->m_pReader);
 			status = p->ParseFromFile();
-			if (status != SUCCESS) delete p;
-			else CuePointCollection.push_back(p);
+			//if (status != SUCCESS) delete p;
+			//else CuePointCollection.push_back(p);
+			CuePointCollection.push_back(p);
 			return status;
 		}
 		else return SUCCESS;

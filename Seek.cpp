@@ -1,4 +1,5 @@
 #include "Seek.h"
+#include "Serialization.h"
 //#include <iostream>
 
 namespace MkvParser

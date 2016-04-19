@@ -17,6 +17,7 @@ namespace MkvParser
 		virtual EbmlID GetElementID() const { return MkvId::kMkvSeekHead; }
 		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id);
 		std::vector<Seek*> Seeks;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 }
 

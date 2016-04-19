@@ -17,7 +17,7 @@ namespace MkvParser
 
 		ParseResult ParseSegment();
 	public:
-		WebmFile(std::string filename) : FileName(filename)
+		WebmFile(std::string filename) : FileName(filename), pReader(nullptr), pHeader(nullptr), pSegment(nullptr)
 		{
 			pReader = new MkvReader();
 		}

@@ -41,7 +41,7 @@ namespace MkvParser
 		std::string DocType;
 		Uint64 DocTypeVersion;
 		Uint64 DocTypeReadVersion;
-
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	protected:
 	};
 }

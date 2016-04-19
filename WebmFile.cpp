@@ -16,7 +16,7 @@ namespace MkvParser
 		e_size = d_size + d_start - e_start;
 		pHeader = new EbmlHeader(e_start, e_size, d_start, d_size, nullptr, pReader);
 		ParseResult status = pHeader->ParseFromFile();
-		if (status != SUCCESS) delete pHeader;
+		//if (status != SUCCESS) delete pHeader;
 		return status;
 	}
 
@@ -58,7 +58,7 @@ namespace MkvParser
 		pSegment = new SegmentElement(e_start, e_size, d_start, d_size, nullptr, pReader);
 		std::cout << "On parsing segment\n\n";
 		status = pSegment->ParseFromFile();
-		if (status != SUCCESS) delete pSegment;
+		//if (status != SUCCESS) delete pSegment;
 		return status;
 	}
 }

@@ -16,6 +16,7 @@ namespace MkvParser
 	class SimpleBlock : public Block, public IBlockEntry
 	{
 	public:
+		//virtual void GenerateSerializedInfo(Uint64 start);
 		virtual EbmlID GetElementID() const { return MkvId::kMkvSimpleBlock; }
 		SimpleBlock(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
 			: Block(elementStart, elementSize, dataStart, dataSize, father, pReader)

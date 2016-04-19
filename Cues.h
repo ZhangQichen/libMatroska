@@ -16,9 +16,10 @@ namespace MkvParser
 			CueBlockNumber(1)
 		{ }
 		virtual EbmlID GetElementID() const { return MkvId::kMkvCues; }
-		Uint64 CueTrack; // The track for which a position is given
+		Uint64 CueTrack; // The track for which a position is given. Starts from 1.
 		Uint64 CueClusterPosition; // The position of the Cluster containing the required Block relative to the start of the data field of Segment
 		Uint64 CueBlockNumber; // Number of the Block in the specified Cluster. Starts from 1.
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class CuePoint : public IEbmlElement
@@ -33,6 +34,7 @@ namespace MkvParser
 		virtual EbmlID GetElementID() const { return MkvId::kMkvCues; }
 		Uint64 CueTime;
 		std::vector<CueTrackPositions*> CueTrackPositionCollection;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 
 	class Cues : public IEbmlElement
@@ -46,6 +48,7 @@ namespace MkvParser
 		{ }
 		virtual EbmlID GetElementID() const { return MkvId::kMkvCues; }
 		std::vector<CuePoint*> CuePointCollection;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 }
 

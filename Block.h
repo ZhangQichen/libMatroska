@@ -32,6 +32,7 @@ namespace MkvParser
 			FAILED
 		*/
 		virtual ParseResult ParseFromFile();
+		//virtual void GenerateSerializedInfo(Uint64 start);
 		virtual EbmlID GetElementID() const { return MkvId::kMkvBlock; }
 		Block(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
 			: IEbmlElement(elementStart, elementSize, dataStart, dataSize, father, pReader)

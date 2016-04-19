@@ -73,5 +73,8 @@ namespace MkvParser
 
 	}
 
-
+	IEbmlElement::IEbmlElement(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)
+		: m_element_start(elementStart), m_element_size(elementSize), m_size_data(dataSize), m_start_data(dataStart), m_pFather(father), m_pReader(pReader)
+	{
+	}
 }

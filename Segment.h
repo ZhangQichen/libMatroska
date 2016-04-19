@@ -32,6 +32,7 @@ namespace MkvParser
 			pTracks(nullptr),
 			pCues(nullptr)
 		{ }
+		//virtual void GenerateSerializedInfo(Uint64 start);
 		virtual EbmlID GetElementID() const { return MkvParser::MkvId::kMkvSegment; }
 		SeekHead* pSeekHead; // Actually SeekHead is useless. Will write a new seekHead during writing.
 		SegmentInfo* pSegInfo;

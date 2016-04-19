@@ -11,6 +11,7 @@ namespace MkvParser
 	class Cluster : public IEbmlElement
 	{
 	public:
+		//virtual void GenerateSerializedInfo(Uint64 start);
 		virtual ParseResult ParseChild(BytePostion e_start, Uint64 e_size, BytePostion d_start, Uint64 d_size, EbmlID id);
 		virtual EbmlID GetElementID() const { return MkvId::kMkvCluster; }
 		Cluster(BytePostion elementStart, Uint64 elementSize, BytePostion dataStart, Uint64 dataSize, IEbmlElement* father, IMkvReader* pReader)

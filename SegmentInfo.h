@@ -27,6 +27,7 @@ namespace MkvParser
 		std::string Title;
 		std::string MuxingApp;
 		std::string WritingApp;
+		//virtual void GenerateSerializedInfo(Uint64 start);
 	};
 }
 
